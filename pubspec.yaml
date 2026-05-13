@@ -1,0 +1,50 @@
+name: plumbforge_ai
+description: "The next-generation AI-powered quoting app for plumbing companies in Australia."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_riverpod: ^2.5.1
+  
+  # Navigation
+  go_router: ^14.0.0
+
+  # Firebase
+  firebase_core: ^2.27.0
+  firebase_auth: ^4.17.8
+  cloud_firestore: ^4.15.8
+
+  # AI & Core
+  google_generative_ai: ^0.4.7
+  camera: ^0.10.5+9
+
+  # PDF Generation
+  pdf: ^3.10.8
+  printing: ^5.12.0
+
+  # Environment
+  flutter_dotenv: ^5.1.0
+
+  # Local DB Cache
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # UI / Layout
+  google_fonts: ^6.2.1
+  gap: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true

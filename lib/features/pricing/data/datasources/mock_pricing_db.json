@@ -1,0 +1,28 @@
+{
+  "materials": [
+    {
+      "name": "100mm PVC-U Pipe (per m)",
+      "partNumber": "RE-PVC-100",
+      "waterMarkLicence": "WMKA12345",
+      "baseCost": 12.50
+    },
+    {
+      "name": "20mm Copper Pipe (per m)",
+      "partNumber": "RE-CU-20",
+      "waterMarkLicence": "WMKA98765",
+      "baseCost": 18.00
+    },
+    {
+      "name": "Toilet (WC) Suite - Standard",
+      "partNumber": "DW-WC-STD",
+      "waterMarkLicence": "WMKA55555",
+      "baseCost": 250.00
+    },
+    {
+      "name": "Vanity Basin 900mm",
+      "partNumber": "DW-VB-900",
+      "waterMarkLicence": "WMKA66666",
+      "baseCost": 450.00
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "standards": [
+    {
+      "id": "AS3500.1-2025-4.2",
+      "clause": "4.2",
+      "document": "AS/NZS 3500.1:2025",
+      "title": "Water Supply - Materials and products",
+      "description": "All materials and products in contact with drinking water must comply with AS/NZS 4020 and be WaterMark certified.",
+      "isMandatory": true
+    },
+    {
+      "id": "AS3500.2-2025-6.1",
+      "clause": "6.1",
+      "document": "AS/NZS 3500.2:2025",
+      "title": "Sanitary Plumbing - Pipe sizes",
+      "description": "Minimum pipe size for a single basin is 40mm. Minimum size for WC is 100mm.",
+      "isMandatory": true
+    },
+    {
+      "id": "QPWC-2025-P1",
+      "clause": "Part 1",
+      "document": "Queensland Plumbing and Wastewater Code",
+      "title": "On-site wastewater management",
+      "description": "Requires advanced secondary treatment for highly sensitive catchments.",
+      "isMandatory": true
+    }
+  ]
+}

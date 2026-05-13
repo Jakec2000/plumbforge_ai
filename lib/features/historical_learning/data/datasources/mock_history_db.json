@@ -1,0 +1,20 @@
+{
+  "historical_jobs": [
+    {
+      "id": "JOB-1001",
+      "fixtureType": "Vanity Basin",
+      "postcode": "4101",
+      "quotedLabourHours": 2,
+      "actualLabourHours": 3,
+      "reasonForOverrun": "Old galvanized pipework required extra time to cut and adapt."
+    },
+    {
+      "id": "JOB-1002",
+      "fixtureType": "Toilet (WC)",
+      "materialTrend": "Copper",
+      "quotedLabourHours": 3,
+      "actualLabourHours": 4.5,
+      "reasonForOverrun": "Copper pipe runs over 3m usually require extensive brazing time."
+    }
+  ]
+}

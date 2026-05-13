@@ -1,0 +1,47 @@
+name: iOS Unsigned Build
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  build-ios:
+    name: Build iOS App (No Codesign)
+    runs-on: macos-latest
+
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          # We don't specify the exact version so it always grabs the latest stable iOS tooling
+          
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build iOS Application
+        # Builds the raw Runner.app without requiring Apple Developer Certificates
+        run: flutter build ios --release --no-codesign
+
+      - name: Package Payload (IPA Prep)
+        # To make it downloadable, we package the .app into a Payload zip structure
+        run: |
+          mkdir Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          zip -r PlumbForgeAI_Unsigned.ipa Payload
+          
+      - name: Upload iOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PlumbForgeAI-iOS-Build
+          path: PlumbForgeAI_Unsigned.ipa
+          retention-days: 7
+          
+      - name: Sideloading Deployment Notice
+        run: |
+          echo "✅ iOS Build Completed Successfully!"
+          echo "⚠️ Note: This is an unsigned build. To install this on your iPhone for FREE without a Developer Account, download the IPA and use a Windows tool like 'Sideloadly' or 'AltStore' to sideload it using your standard Apple ID."
