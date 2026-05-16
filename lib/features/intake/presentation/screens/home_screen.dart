@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../field_mode/presentation/widgets/field_mode_toggle.dart';
+import '../../auth/providers/auth_provider.dart';
+import '../../quoting/data/services/follow_up_service.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     
     return Scaffold(
@@ -15,6 +18,14 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: theme.colorScheme.primary,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              ref.read(authStateProvider.notifier).logout();
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -65,6 +76,48 @@ class HomeScreen extends StatelessWidget {
               icon: Icons.storefront,
               color: Colors.purple[700]!,
               onTap: () => context.pushNamed('integrations'),
+            ),
+            const SizedBox(height: 16),
+
+            Consumer(
+              builder: (context, ref, child) {
+                final followUpService = ref.watch(followUpServiceProvider);
+                final pendingCount = followUpService.pendingFollowUpsCount;
+                if (pendingCount > 0) {
+                  return Card(
+                    color: Colors.orange[50],
+                    child: ListTile(
+                      leading: const Icon(Icons.warning_amber_rounded, color: Colors.orange),
+                      title: Text('\$pendingCount Quotes Need Follow-Up!'),
+                      subtitle: const Text('Tap to send automated SMS reminders.'),
+                      trailing: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                        child: const Text('Send All'),
+                      ),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+            const SizedBox(height: 16),
+
+            Consumer(
+              builder: (context, ref, child) {
+                final user = ref.watch(authStateProvider).value;
+                if (user?.isAdmin == true) {
+                  return _buildActionCard(
+                    context,
+                    title: 'Admin Dashboard',
+                    subtitle: 'Team management & revenue',
+                    icon: Icons.shield,
+                    color: Colors.red[800]!,
+                    onTap: () => context.pushNamed('admin'),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ],
         ),

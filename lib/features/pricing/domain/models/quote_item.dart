@@ -1,3 +1,5 @@
+import '../../quoting/domain/models/quote_status.dart';
+
 class QuoteItem {
   final String description;
   final String partNumber;
@@ -26,11 +28,33 @@ class QuoteSummary {
   final double subtotal;
   final double gst;
   final double total;
+  final QuoteStatus status;
+  final DateTime? sentDate;
 
   QuoteSummary({
     required this.items,
     required this.subtotal,
     required this.gst,
     required this.total,
+    this.status = QuoteStatus.draft,
+    this.sentDate,
   });
+
+  QuoteSummary copyWith({
+    List<QuoteItem>? items,
+    double? subtotal,
+    double? gst,
+    double? total,
+    QuoteStatus? status,
+    DateTime? sentDate,
+  }) {
+    return QuoteSummary(
+      items: items ?? this.items,
+      subtotal: subtotal ?? this.subtotal,
+      gst: gst ?? this.gst,
+      total: total ?? this.total,
+      status: status ?? this.status,
+      sentDate: sentDate ?? this.sentDate,
+    );
+  }
 }

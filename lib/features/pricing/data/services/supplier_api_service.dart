@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../pricing/domain/models/plumbing_supplier.dart';
-import '../../pricing/providers/supplier_integration_provider.dart';
+import '../../domain/models/plumbing_supplier.dart';
+import '../../providers/supplier_integration_provider.dart';
 
 final supplierApiProvider = Provider<SupplierApiService>((ref) {
   final activeSupplier = ref.watch(primarySupplierProvider);

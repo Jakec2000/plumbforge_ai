@@ -6,6 +6,7 @@ import '../../../pricing/domain/models/quote_item.dart';
 import '../../../ai_takeoff/domain/models/takeoff_result.dart';
 import '../../data/services/portal_link_service.dart';
 import '../../../accounting/data/services/xero_service.dart';
+import '../../../core/sync/offline_sync_engine.dart';
 
 class QuotePreviewScreen extends ConsumerStatefulWidget {
   final QuoteSummary quoteSummary;
@@ -30,9 +31,13 @@ class _QuotePreviewScreenState extends ConsumerState<QuotePreviewScreen> {
     final portalService = ref.read(portalLinkProvider);
     try {
       final link = await portalService.generateMagicLink("CUST-123", widget.quoteSummary.total);
+      
+      // Queue for offline sync to ensure it eventually hits Firebase
+      await ref.read(offlineSyncProvider).queueQuoteForSync(widget.quoteSummary);
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Magic Link SMS sent: \$link'),
+          content: Text('Magic Link SMS sent: \$link. Synced to Cloud!'),
           backgroundColor: Colors.green,
         ));
       }

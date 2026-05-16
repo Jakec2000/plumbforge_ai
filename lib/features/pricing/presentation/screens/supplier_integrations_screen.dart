@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../domain/models/plumbing_supplier.dart';
 import '../providers/supplier_integration_provider.dart';
 
+import '../../auth/providers/auth_provider.dart';
+
 class SupplierIntegrationsScreen extends ConsumerWidget {
   const SupplierIntegrationsScreen({super.key});
 
@@ -10,6 +12,8 @@ class SupplierIntegrationsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final suppliers = ref.watch(supplierIntegrationsProvider);
     final primary = ref.watch(primarySupplierProvider);
+    final user = ref.watch(authStateProvider).value;
+    final isAdmin = user?.isAdmin ?? false;
 
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +73,7 @@ class SupplierIntegrationsScreen extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          if (supplier.isConnected)
+                          if (supplier.isConnected && isAdmin)
                             TextButton(
                               onPressed: () {
                                 ref.read(supplierIntegrationsProvider.notifier).disconnectSupplier(supplier.type);
@@ -80,11 +84,13 @@ class SupplierIntegrationsScreen extends ConsumerWidget {
                               child: const Text('Disconnect', style: TextStyle(color: Colors.red)),
                             ),
                           const SizedBox(width: 8),
-                          if (!supplier.isConnected)
+                          if (!supplier.isConnected && isAdmin)
                             ElevatedButton(
                               onPressed: () => _showConnectDialog(context, ref, supplier.type),
                               child: const Text('Connect'),
                             ),
+                          if (!supplier.isConnected && !isAdmin)
+                            const Text('Ask Admin to Connect', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
                           if (supplier.isConnected && !isPrimary)
                             ElevatedButton(
                               onPressed: () {
