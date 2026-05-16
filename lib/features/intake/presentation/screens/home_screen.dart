@@ -56,6 +56,16 @@ class HomeScreen extends StatelessWidget {
               color: Colors.blue[700]!,
               onTap: () => context.pushNamed('routing'),
             ),
+            const SizedBox(height: 16),
+
+            _buildActionCard(
+              context,
+              title: 'Wholesale Integrations',
+              subtitle: 'Connect Reece, Tradelink & more',
+              icon: Icons.storefront,
+              color: Colors.purple[700]!,
+              onTap: () => context.pushNamed('integrations'),
+            ),
           ],
         ),
       ),

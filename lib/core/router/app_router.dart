@@ -10,6 +10,7 @@ import '../../features/quoting/presentation/screens/quote_preview_screen.dart';
 import '../../features/pricing/domain/models/quote_item.dart';
 import '../../features/ai_takeoff/domain/models/takeoff_result.dart';
 import '../../features/scheduling/presentation/screens/ai_routing_dashboard.dart';
+import '../../features/pricing/presentation/screens/supplier_integrations_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -42,6 +43,11 @@ final routerProvider = Provider<GoRouter>((ref) {
           appBar: AppBar(title: const Text('AI Routing')),
           body: const AiRoutingDashboard(),
         ),
+      ),
+      GoRoute(
+        path: '/integrations',
+        name: 'integrations',
+        builder: (context, state) => const SupplierIntegrationsScreen(),
       ),
       GoRoute(
         path: '/quote-preview',

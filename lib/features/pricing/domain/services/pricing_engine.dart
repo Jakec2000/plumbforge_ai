@@ -19,7 +19,7 @@ class PricingEngine {
         description: fixture, 
         quantity: 1, 
         unitCost: livePrice,
-        partNumber: 'LIVE-\${fixture.substring(0, fixture.length > 3 ? 3 : fixture.length).toUpperCase()}',
+        partNumber: '\${supplier.getPartPrefix()}\${fixture.substring(0, fixture.length > 3 ? 3 : fixture.length).toUpperCase()}',
       ));
     }
 
@@ -28,7 +28,7 @@ class PricingEngine {
       double livePrice = await supplier.fetchMaterialCost(run.material);
       items.add(QuoteItem(
         description: "\${run.diameter}mm \${run.material} Pipe",
-        partNumber: 'LIVE-PIPE',
+        partNumber: '\${supplier.getPartPrefix()}PIPE',
         unitCost: livePrice,
         quantity: run.estimatedLength.ceil(),
       ));
