@@ -7,6 +7,7 @@ import '../../../ai_takeoff/domain/models/takeoff_result.dart';
 import '../../../pricing/domain/services/pricing_engine.dart';
 import '../../../historical_learning/domain/services/historical_engine.dart';
 import '../../../field_mode/providers/field_mode_provider.dart';
+import '../../../pricing/data/services/supplier_api_service.dart';
 
 class NewJobIntakeScreen extends ConsumerStatefulWidget {
   const NewJobIntakeScreen({super.key});
@@ -66,7 +67,8 @@ class _NewJobIntakeScreenState extends ConsumerState<NewJobIntakeScreen> {
         ) ?? false;
         
         final pricingEngine = ref.read(pricingEngineProvider);
-        final summary = pricingEngine.generateQuote(result, insight: acceptInsight ? insight : null);
+        final supplier = ref.read(supplierApiProvider);
+        final summary = await pricingEngine.generateQuote(result, supplier, insight: acceptInsight ? insight : null);
         
         if (mounted) {
           context.pushNamed('quote-preview', extra: {
@@ -76,7 +78,8 @@ class _NewJobIntakeScreenState extends ConsumerState<NewJobIntakeScreen> {
         }
       } else {
         final pricingEngine = ref.read(pricingEngineProvider);
-        final summary = pricingEngine.generateQuote(result);
+        final supplier = ref.read(supplierApiProvider);
+        final summary = await pricingEngine.generateQuote(result, supplier);
         
         if (mounted) {
           context.pushNamed('quote-preview', extra: {

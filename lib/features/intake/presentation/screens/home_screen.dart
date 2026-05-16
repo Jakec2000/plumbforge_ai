@@ -46,6 +46,16 @@ class HomeScreen extends StatelessWidget {
               color: theme.colorScheme.secondary,
               onTap: () {},
             ),
+            const SizedBox(height: 16),
+            
+            _buildActionCard(
+              context,
+              title: 'AI Routing & Scheduling',
+              subtitle: 'Optimize driving for today',
+              icon: Icons.route,
+              color: Colors.blue[700]!,
+              onTap: () => context.pushNamed('routing'),
+            ),
           ],
         ),
       ),

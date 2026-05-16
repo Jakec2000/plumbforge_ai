@@ -9,6 +9,7 @@ import '../../features/intake/presentation/screens/ar_camera_screen.dart';
 import '../../features/quoting/presentation/screens/quote_preview_screen.dart';
 import '../../features/pricing/domain/models/quote_item.dart';
 import '../../features/ai_takeoff/domain/models/takeoff_result.dart';
+import '../../features/scheduling/presentation/screens/ai_routing_dashboard.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -33,6 +34,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/ar-camera',
         name: 'ar-camera',
         builder: (context, state) => const ArCameraScreen(),
+      ),
+      GoRoute(
+        path: '/routing',
+        name: 'routing',
+        builder: (context, state) => Scaffold(
+          appBar: AppBar(title: const Text('AI Routing')),
+          body: const AiRoutingDashboard(),
+        ),
       ),
       GoRoute(
         path: '/quote-preview',
